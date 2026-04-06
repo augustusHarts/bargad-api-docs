@@ -1,63 +1,85 @@
-import Image from "next/image";
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Sidebar from '../components/Sidebar';
+import EndpointSection from '../components/EndpointSection';
+import { services } from '../data/services';
 
 export default function Home() {
+  const [activeId, setActiveId] = useState('');
+
+  // Intersection observer to track which endpoint is currently active on screen
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -80% 0px' }
+    );
+
+    const elements = document.querySelectorAll('section[id]');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex w-full min-h-screen bg-white">
+      {/* Sidebar hidden on very small screens, visible on md+ */}
+      <div className="hidden md:block w-64 flex-shrink-0">
+        <Sidebar services={services} activeId={activeId} />
+      </div>
+
+      {/* Main Content */}
+      <main className="flex-1 md:w-full w-full">
+        {/* Mobile Header */}
+        <div className="md:hidden bg-[#24aa4d] text-white p-4 font-bold text-xl sticky top-0 z-20 shadow-md">
+          Bargad.ai API Docs
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="max-w-[1600px] w-full">
+          {/* Introduction block */}
+          <section id="introduction" className="border-b border-gray-200 scroll-mt-0">
+            <div className="flex flex-col lg:flex-row">
+              <div className="lg:w-1/2 p-8 lg:p-12 lg:border-r border-gray-200 bg-white">
+                <h1 className="text-4xl font-extrabold text-gray-900 mb-6">API Documentation</h1>
+                <p className="text-lg text-gray-700 mb-4">
+                  Welcome to our API reference. Here you'll find comprehensive guides and documentation to help you start working with our platform as quickly as possible.
+                </p>
+                <p className="text-gray-600 mb-8 mt-4 leading-relaxed">
+                  The API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
+                </p>
+
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">Base URL</h3>
+                <code className="bg-gray-100 px-3 py-2 rounded text-base font-mono block mb-8 text-gray-800">
+                  https://api.bargad.ai
+                </code>
+              </div>
+              <div className="lg:w-1/2 p-8 lg:p-12 bg-slate-900 text-gray-300">
+                <h3 className="text-sm border-b border-slate-700 pb-2 mb-4 font-semibold text-slate-200 uppercase tracking-wider">Authentication</h3>
+                <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+                  Authenticate your account when using the API by including your secret API key in the authorization header.
+                </p>
+                <div className="bg-slate-950 p-4 rounded-md mb-8 overflow-x-auto text-sm font-mono border border-slate-800">
+                  <div className="text-slate-400">Authorization: Bearer <span className="text-amber-200">YOUR_API_KEY</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Render all services and their endpoints */}
+          {services.map((service) => (
+            <div key={service.id}>
+              {service.endpoints.map((endpoint) => (
+                <EndpointSection key={endpoint.id} endpoint={endpoint} />
+              ))}
+            </div>
+          ))}
+
         </div>
       </main>
     </div>

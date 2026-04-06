@@ -1,0 +1,104 @@
+import React from 'react';
+
+const MethodBadge = ({ method }) => {
+  const colors = {
+    GET: 'bg-blue-100 text-blue-700 border-blue-200',
+    POST: 'bg-green-100 text-green-700 border-green-200',
+    PUT: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+    DELETE: 'bg-red-100 text-red-700 border-red-200',
+  };
+  
+  const colorClass = colors[method.toUpperCase()] || 'bg-gray-100 text-gray-700 border-gray-200';
+  
+  return (
+    <span className={`px-2 py-0.5 text-xs font-bold rounded border ${colorClass}`}>
+      {method.toUpperCase()}
+    </span>
+  );
+};
+
+export default function EndpointSection({ endpoint }) {
+  return (
+    <section id={endpoint.id} className="border-b border-gray-200 scroll-mt-0">
+      <div className="flex flex-col lg:flex-row">
+        {/* Left Column - Details */}
+        <div className="lg:w-1/2 p-8 lg:p-12 lg:border-r border-gray-200 bg-white">
+          <div className="flex items-center space-x-3 mb-4">
+            <h2 className="text-2xl font-semibold text-gray-900">{endpoint.title}</h2>
+          </div>
+          
+          <div className="mb-6 flex items-center space-x-2">
+            <MethodBadge method={endpoint.method} />
+            <code className="text-sm bg-gray-100 px-2 py-1 rounded text-gray-800 font-mono">
+              {endpoint.path}
+            </code>
+          </div>
+          
+          <p className="text-gray-600 mb-8">{endpoint.description}</p>
+          
+          {endpoint.parameters && endpoint.parameters.length > 0 && (
+            <div className="mb-8">
+              <h3 className="text-lg font-medium text-gray-900 mb-4 border-b pb-2">Parameters</h3>
+              <ul className="space-y-4">
+                {endpoint.parameters.map((param, idx) => (
+                  <li key={idx} className="flex flex-col">
+                    <div className="flex items-baseline space-x-2">
+                      <span className="font-mono text-sm font-semibold text-gray-800">{param.name}</span>
+                      <span className="text-xs text-gray-500 italic">{param.type}</span>
+                      <span className="text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">in {param.in}</span>
+                    </div>
+                    <span className="text-sm text-gray-600 mt-1">{param.description}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {endpoint.requestBody && (
+            <div className="mb-8">
+              <h3 className="text-lg font-medium text-gray-900 mb-4 border-b pb-2">Request Body</h3>
+              <pre className="bg-gray-50 text-gray-800 p-4 rounded border border-gray-200 text-sm font-mono overflow-auto whitespace-pre-wrap">
+                {JSON.stringify(endpoint.requestBody, null, 2)}
+              </pre>
+            </div>
+          )}
+        </div>
+        
+        {/* Right Column - Code Samples & Responses */}
+        <div className="lg:w-1/2 p-8 lg:p-12 bg-slate-900 text-gray-300">
+          <h3 className="text-sm border-b border-slate-700 pb-2 mb-4 font-semibold text-slate-200 uppercase tracking-wider">Example Request</h3>
+          <div className="bg-slate-950 p-4 rounded-md mb-8 overflow-x-auto text-sm font-mono border border-slate-800">
+            <div className="flex space-x-2">
+              <span className="text-blue-400 font-semibold">{endpoint.method}</span>
+              <span className="text-green-400">{endpoint.path}</span>
+            </div>
+            <div className="mt-2 text-slate-400">Host: api.example.com</div>
+            <div className="text-slate-400">Authorization: Bearer {'<token>'}</div>
+            {endpoint.method !== 'GET' && endpoint.requestBody && (
+              <pre className="mt-4 text-emerald-300 whitespace-pre-wrap">
+                {JSON.stringify(endpoint.requestBody, null, 2)}
+              </pre>
+            )}
+          </div>
+
+          <h3 className="text-sm border-b border-slate-700 pb-2 mb-4 font-semibold text-slate-200 uppercase tracking-wider">Responses</h3>
+          {Object.entries(endpoint.responses).map(([status, response]) => (
+            <div key={status} className="mb-6">
+              <div className="flex items-center mb-2">
+                <span className={`text-sm font-bold mr-2 ${status.startsWith('2') ? 'text-green-400' : 'text-red-400'}`}>
+                  {status}
+                </span>
+                <span className="text-sm text-slate-400">{response.description}</span>
+              </div>
+              {response.body && (
+                <pre className="bg-slate-950 p-4 rounded-md overflow-x-auto text-sm font-mono border border-slate-800 text-amber-200 whitespace-pre-wrap">
+                  {JSON.stringify(response.body, null, 2)}
+                </pre>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
