@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 
 export default function Sidebar({ services, activeId }) {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('search ..');
 
   const filteredServices = services.map(service => {
-    const filteredEndpoints = service.endpoints.filter(ep => 
-      ep.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    const filteredEndpoints = service.endpoints.filter(ep =>
+      ep.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       ep.path.toLowerCase().includes(searchQuery.toLowerCase()) ||
       service.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -20,10 +20,10 @@ export default function Sidebar({ services, activeId }) {
         Bargad.ai API Docs
       </div>
       <div className="p-4 border-b border-gray-200 sticky top-[60px] bg-gray-50 z-10">
-        <input 
-          type="text" 
-          placeholder="Search endpoints..." 
-          className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#24aa4d] focus:border-transparent"
+        <input
+          type="text"
+          placeholder="Search endpoints..."
+          className="w-full px-3 py-2 text-black border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#24aa4d] focus:border-transparent"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
