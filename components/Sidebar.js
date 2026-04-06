@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 export default function Sidebar({ services, activeId }) {
-  const [searchQuery, setSearchQuery] = useState('search ..');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredServices = services.map(service => {
     const filteredEndpoints = service.endpoints.filter(ep =>
