@@ -76,58 +76,55 @@ export const services = [
             body: {
               "email_recent_abuse": "boolean",
               "email_honeypot": "boolean",
-              "email_spam_trap_score": "none",
-              "email_domain_trust": "N/A",
+              "email_spam_trap_score": "string",
+              "email_domain_trust": "string",
               "email_valid": "boolean",
               "email_disposable": "boolean",
-              "email_deliverability": "high",
+              "email_deliverability": "string",
               "email_catch_all": "boolean",
-              "email_smtp_score": 3,
-              "email_overall_score": 4,
-              "email_suggested_domain": "N/A",
+              "email_smtp_score": "number",
+              "email_overall_score": "number",
+              "email_suggested_domain": "string",
               "email_suspect": "boolean",
               "email_dns_valid": "boolean",
               "email_spf_record": "boolean",
               "email_dmarc_record": "boolean",
               "email_leaked": "boolean",
-              "email_first_name": "Mana",
+              "email_first_name": "string",
               "email_common": "boolean",
               "email_generic": "boolean",
               "email_frequent_complainer": "boolean",
-              "email_domain_velocity": "N/A",
-              "email_user_activity": "N/A",
-              "email_phone_numbers": "N/A",
+              "email_domain_velocity": "string",
+              "email_user_activity": "string",
+              "email_phone_numbers": "string",
               "email_risky_tld": "boolean",
-              "email_message": "Success.",
+              "email_message": "string",
               "email_success": "boolean",
               "email_timed_out": "boolean",
-              "email_fraud_score": 0,
+              "email_fraud_score": "number",
               "email_domain_age": {
-                "human": "0 years ago",
+                "human": "string",
                 "timestamp": 'number',
-                "iso": "1995-08-13T00:00:00-04:00"
+                "iso": "string"
               },
               "email_first_seen": {
-                "human": "0 years ago",
+                "human": "string",
                 "timestamp": 'number',
-                "iso": "2024-06-11T02:49:05-04:00"
+                "iso": "string"
               },
-              "email_sanitized_email": "example@gmail.com",
+              "email_sanitized_email": "string",
               "email_associated_names": {
-                "status": "Enterprise Plus or higher required.",
+                "status": "string",
                 "names": []
               },
               "email_mx_records": [
-                "alt1.gmail-smtp-in.l.google.com",
-                "alt3.gmail-smtp-in.l.google.com",
-                "alt4.gmail-smtp-in.l.google.com"
+                "string"
               ],
               "email_a_records": [
-                "342.1221.03.63",
-                "273.428.1993.93"
+                "string"
               ],
-              "email_result_type": "cached",
-              "email_request_id": "afcsdfe"
+              "email_result_type": "string",
+              "email_request_id": "string"
             }
           }
         }
@@ -153,28 +150,28 @@ export const services = [
               "ip_active_tor": "boolean",
               "ip_proxy": "boolean",
               "ip_bot_status": "boolean",
-              "ip_abuse_velocity": "N/A",
-              "latitude": 93.13,
-              "longitude": 13.53,
-              "ip_country": "IN",
-              "ip_region": "state",
-              "ip_city": "city",
-              "ip_zip_code": "N/A",
-              "ip_time_zone": "Asia/Kolkata",
-              "ip_connection_type": "N/A",
-              "ip_isp": "telecom",
-              "ip_organization": "telecom",
-              "ip_asn": 21234,
+              "ip_abuse_velocity": "string",
+              "latitude": "number",
+              "longitude": "number",
+              "ip_country": "string",
+              "ip_region": "string",
+              "ip_city": "string",
+              "ip_zip_code": "string",
+              "ip_time_zone": "string",
+              "ip_connection_type": "string",
+              "ip_isp": "string",
+              "ip_organization": "string",
+              "ip_asn": "number",
               "ip_is_crawler": "boolean",
-              "ip_success": "true",
-              "ip_message": "Success",
-              "ip_fraud_score": 0,
+              "ip_success": "boolean",
+              "ip_message": "string"  ,
+              "ip_fraud_score": "number",
               "ip_mobile": "boolean",
-              "ip_host": "000.000.000.000",
+              "ip_host": "string",
               "ip_abuse_events": [
-                "Enterprise plan required to view abuse events and active proxy networks"
+                "string"
               ],
-              "ip_request_id": "afwewe"
+              "ip_request_id": "string"
             }
           }
         }
@@ -198,13 +195,13 @@ export const services = [
           200: {
             description: "IP data fetched successfully",
             body: {
-              "phone_ported": "No",
-              "phone_vintage": "15 to 16 Years",
-              "phone_active": "Yes",
-              "phone_valid": "Yes",
-              "phone_region": "state",
-              "phone_carrier": "telecompany",
-              "phone_roaming": "No"
+              "phone_ported": "boolean",
+              "phone_vintage": "string",
+              "phone_active": "boolean",
+              "phone_valid": "boolean",
+              "phone_region": "string",
+              "phone_carrier": "string",
+              "phone_roaming": "boolean"
             }
           }
         }

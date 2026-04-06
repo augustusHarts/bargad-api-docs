@@ -59,13 +59,13 @@ export default function Home() {
                   https://api.bargad.ai
                 </code>
               </div>
-              <div className="lg:w-1/2 p-8 lg:p-12 bg-slate-900 text-gray-300">
-                <h3 className="text-sm border-b border-slate-700 pb-2 mb-4 font-semibold text-slate-200 uppercase tracking-wider">Authentication</h3>
-                <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+              <div className="lg:w-1/2 p-8 lg:p-12 bg-[#000000] text-white">
+                <h3 className="text-sm border-b border-[#24aa4d]/40 pb-2 mb-4 font-bold text-[#42ea5a] uppercase tracking-wider">Authentication</h3>
+                <p className="text-sm text-gray-400 mb-4 leading-relaxed">
                   Authenticate your account when using the API by including your secret API key in the authorization header.
                 </p>
-                <div className="bg-slate-950 p-4 rounded-md mb-8 overflow-x-auto text-sm font-mono border border-slate-800">
-                  <div className="text-slate-400">Authorization: Bearer <span className="text-amber-200">YOUR_API_KEY</span></div>
+                <div className="bg-[#0a0a0a] p-4 rounded border border-[#24aa4d]/30 overflow-x-auto text-sm font-mono shadow-md shadow-[#24aa4d]/10">
+                  <div className="text-gray-300">Authorization: Bearer <span className="text-[#42ea5a] font-bold">YOUR_API_KEY</span></div>
                 </div>
               </div>
             </div>
