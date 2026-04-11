@@ -1,9 +1,9 @@
 'use client';
-
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 export default function Sidebar({ services, activeId }) {
   const [searchQuery, setSearchQuery] = useState('');
+  const itemsRef = useRef({});
 
   const filteredServices = services.map(service => {
     const filteredEndpoints = service.endpoints.filter(ep =>
@@ -13,6 +13,18 @@ export default function Sidebar({ services, activeId }) {
     );
     return { ...service, endpoints: filteredEndpoints };
   }).filter(service => service.endpoints.length > 0);
+
+  // Scroll the active section in sidebar into view when activeId changes
+  useEffect(() => {
+    const el = itemsRef.current[activeId];
+    if(el) {
+      const rect = el.getBoundingClientRect();
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, [activeId]); 
 
   return (
     <div className="w-72 h-full bg-[#f8fcf9] border-r border-[#e0f2e5] overflow-y-auto fixed left-0 top-0 pb-10 shadow-lg shadow-[#24aa4d]/5 custom-scrollbar">
@@ -44,6 +56,7 @@ export default function Sidebar({ services, activeId }) {
                 <li key={endpoint.id}>
                   <a
                     href={`#${endpoint.id}`}
+                    ref={(el) => (itemsRef.current[endpoint.id] = el)}
                     className={`block px-3 py-2 text-[13px] rounded-lg transition-all duration-300 ${activeId === endpoint.id
                       ? 'bg-gradient-to-r from-[#24aa4d] to-[#42ea5a] text-white font-bold shadow-md shadow-[#24aa4d]/30 translate-x-1'
                       : 'text-gray-600 font-medium hover:bg-[#e0f2e5] hover:text-[#24aa4d] hover:translate-x-1'

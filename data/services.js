@@ -82,8 +82,8 @@ export const services = [
               "email_disposable": "boolean",
               "email_deliverability": "string",
               "email_catch_all": "boolean",
-              "email_smtp_score": "number",
-              "email_overall_score": "number",
+              "email_smtp_score": "integer",
+              "email_overall_score": "integer",
               "email_suggested_domain": "string",
               "email_suspect": "boolean",
               "email_dns_valid": "boolean",
@@ -101,7 +101,7 @@ export const services = [
               "email_message": "string",
               "email_success": "boolean",
               "email_timed_out": "boolean",
-              "email_fraud_score": "number",
+              "email_fraud_score": "integer",
               "email_domain_age": {
                 "human": "string",
                 "timestamp": 'number',
@@ -115,7 +115,9 @@ export const services = [
               "email_sanitized_email": "string",
               "email_associated_names": {
                 "status": "string",
-                "names": []
+                "names": [
+                  "string"
+                ]
               },
               "email_mx_records": [
                 "string"
@@ -151,8 +153,8 @@ export const services = [
               "ip_proxy": "boolean",
               "ip_bot_status": "boolean",
               "ip_abuse_velocity": "string",
-              "latitude": "number",
-              "longitude": "number",
+              "latitude": "integer",
+              "longitude": "integer",
               "ip_country": "string",
               "ip_region": "string",
               "ip_city": "string",
@@ -161,11 +163,11 @@ export const services = [
               "ip_connection_type": "string",
               "ip_isp": "string",
               "ip_organization": "string",
-              "ip_asn": "number",
+              "ip_asn": "integer",
               "ip_is_crawler": "boolean",
               "ip_success": "boolean",
               "ip_message": "string"  ,
-              "ip_fraud_score": "number",
+              "ip_fraud_score": "integer",
               "ip_mobile": "boolean",
               "ip_host": "string",
               "ip_abuse_events": [
@@ -195,13 +197,13 @@ export const services = [
           200: {
             description: "IP data fetched successfully",
             body: {
-              "phone_ported": "boolean",
+              "phone_ported": "string",
               "phone_vintage": "string",
-              "phone_active": "boolean",
-              "phone_valid": "boolean",
+              "phone_active": "string",
+              "phone_valid": "string",
               "phone_region": "string",
               "phone_carrier": "string",
-              "phone_roaming": "boolean"
+              "phone_roaming": "string"
             }
           }
         }
@@ -214,7 +216,29 @@ export const services = [
         description: "Verify Voter ID details .",
         parameters: [],
         requestBody: { voterid: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response", 
+            body: {
+                "document_type": "string",
+                "document_id": "string",
+                "name": "string",
+                "father_name": "string",
+                "gender": "string",
+                "age": "integer",
+                "district": "string",
+                "state": "string",
+                "assembly_constituency_number": "integer",
+                "assembly_constituency_name": "string",
+                "parliamentary_constituency_number": "integer",
+                "parliamentary_constituency_name": "string",
+                "part_number": "integer",
+                "part_name": "string",
+                "serial_number": "integer",
+                "polling_station": "string"
+            }
+          }
+        }
       },
       {
         id: "uan-profile",
@@ -264,7 +288,16 @@ export const services = [
         description: "Fetch and verify UPI ID details.",
         parameters: [],
         requestBody: { mobile: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response", 
+            body: {
+              "upi_id": "string",
+              "name": "string",
+              "status": "string"
+            }
+          } 
+        }
       },
       {
         id: "pan-adv",
@@ -274,7 +307,23 @@ export const services = [
         description: "Advanced PAN validation.",
         parameters: [],
         requestBody: { pan: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response", 
+            body: {
+              "document_type": "string",
+              "document_id": "string",
+              "name": "string",
+              "first_name": "string",
+              "last_name": "string",
+              "category": "string",
+              "category_type": "string",
+              "is_individual": "boolean",
+              "individual_tax_compliance_status": "string",
+              "aadhaar_linked": "boolean"
+            }
+          } 
+        }
       },
       {
         id: "pan-phone",
@@ -311,7 +360,163 @@ export const services = [
         description: "Detailed IP reputation check.",
         parameters: [],
         requestBody: { ip: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response",
+            body: {
+              "blacklist": {
+                  "engines": {
+                      "0": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "1": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "2": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "3": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "4": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "5": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "6": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "7": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "8": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "9": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "10": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "11": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "12": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "13": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "14": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "15": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "16": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "17": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "18": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "19": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                      "20": {
+                          "name": "string",
+                          "detected": "boolean"
+                      },
+                  },
+                  "detections": "integer",
+                  "engines_count": "integer",
+                  "detection_rate": "integer",
+                  "scan_time_ms": "integer"
+              },
+              "continent_code": "string",
+              "continent_name": "string",
+              "country_code": "string",
+              "country_name": "string",
+              "currency": "string",
+              "currency_name": "string",
+              "currency_name_plural": "string",
+              "currency_symbol": "string",
+              "currency_symbol_native": "string",
+              "calling_code": "string",
+              "emoji_flag": "string",
+              "emoji_flag_unicode": "string",
+              "region_name": "string",
+              "city_name": "string",
+              "latitude": "float",
+              "longitude": "float",
+              "isp": "string",
+              "asn": "string",
+              "is_bogon": "boolean",
+              "is_spamhaus_drop": "boolean",
+              "is_ai_crawler": "boolean",
+              "is_google_bot": "boolean",
+              "is_web_crawler": "boolean",
+              "related_service_name": "string",
+              "related_service_domain": "string",
+              "related_service_type": "string",
+              "is_major_provider_spf_ip": "boolean",
+              "is_public_dns": "boolean",
+              "cloud_provider": "string",
+              "cloud_provider_domain": "string",
+              "aws_service": "string",
+              "is_google_service": "boolean",
+              "edge_service": "string",
+              "edge_service_domain": "string",
+              "is_satellite": "boolean",
+              "asname": "string",
+              "route": "string",
+              "status": "string",
+              "org": "string",
+              "created": "string",  
+              "days_since_created": "integer",
+              "updated": "string",
+              "days_since_updated": "integer",
+              "address": "string",
+              "abuse_email": "string",
+              "domain": "string",
+              "total_ipv4_prefixes": "integer",
+              "total_ipv4_ips": "integer",
+              "total_ipv6_prefixes": "integer",
+              "type": "string",
+              "rir": "string",
+              "is_proxy": "boolean",
+              "is_webproxy": "boolean",
+              "is_residential_proxy": "boolean",
+              "is_vpn": "boolean",
+              "is_hosting": "boolean",
+              "is_relay": "boolean",
+              "is_tor": "boolean"
+            }
+          } 
+        }
       },
       {
         id: "apivoid-blacklist",
@@ -321,7 +526,103 @@ export const services = [
         description: "Check IP against blacklist engines.",
         parameters: [],
         requestBody: { ip: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response", 
+            body: {
+                      "engines": {
+            "0": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "1": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "2": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "3": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "4": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "5": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "6": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "7": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "8": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "9": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "10": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "11": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "12": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "13": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "14": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "15": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "16": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "17": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "18": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "19": {
+                "name": "string",
+                "detected": "boolean"
+            },
+            "20": {
+                "name": "string",
+                "detected": "boolean"
+            },
+        },
+        "detections": "integer",
+        "engines_count": "integer",
+        "detection_rate": "integer",
+        "scan_time_ms": "integer"
+            }
+          } 
+        }
       },
       {
         id: "apivoid-ip-details",
@@ -331,7 +632,70 @@ export const services = [
         description: "Retrieve comprehensive details for an IP.",
         parameters: [],
         requestBody: { ip: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response",
+            body: {
+              "continent_code": "string",
+              "continent_name": "string",
+              "country_code": "string",
+              "country_name": "string",
+              "currency": "string",
+              "currency_name": "string",
+              "currency_name_plural": "string",
+              "currency_symbol": "string",
+              "currency_symbol_native": "string",
+              "calling_code": "integer",
+              "emoji_flag": "string",
+              "emoji_flag_unicode": "string",
+              "region_name": "string",
+              "city_name": "string",
+              "latitude": "float",
+              "longitude": "float",
+              "isp": "string",
+              "asn": "string",
+              "related_service_name": "string",
+              "related_service_domain": "string",
+              "related_service_type": "string",
+              "is_major_provider_spf_ip": "boolean",
+              "is_public_dns": "boolean",
+              "is_cloud_provider": "boolean",
+              "cloud_provider_domain": "string",
+              "aws_service": "string",
+              "is_google_service": "boolean",
+              "edge_service": "string",
+              "edge_service_domain": "string",
+              "asname": "string",
+              "route": "string",
+              "status": "string",
+              "org": "string",
+              "created": "date",
+              "days_since_created": "integer",
+              "updated": "date",
+              "days_since_updated": "integer",
+              "address": "string",
+              "abuse_contact": "string",
+              "domain": "string",
+              "total_ipv4_prefixes": "integer",
+              "total_ipv4_ips": "integer",
+              "total_ipv6_prefixes": "integer",
+              "type": "string",
+              "rir": "string",
+              "is_proxy": "boolean",
+              "is_webproxy": "boolean",
+              "is_residential_proxy": "boolean",
+              "is_vpn": "boolean",
+              "is_hosting": "boolean",
+              "is_relay": "boolean",
+              "is_tor": "boolean",
+              "is_bogon": "boolean",
+              "is_spamhaus_drop": "boolean",
+              "is_ai_crawler": "boolean",
+              "is_google_bot": "boolean",
+              "is_web_crawler": "boolean",
+              "is_satellite": "boolean",
+          }
+         } }
       },
       {
         id: "apivoid-domain-info",
@@ -341,7 +705,42 @@ export const services = [
         description: "Fetch information about a specific domain.",
         parameters: [],
         requestBody: { domain: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response",
+            body:{
+              "host": "string",
+              "debug_message": "string",
+              "domain_age_found": "boolean",
+              "domain_registered": "string",
+              "domain_creation_date": "date",
+              "domain_age_in_days": "integer",
+              "domain_age_in_months": "integer",
+              "domain_age_in_years": "integer",
+              "registrar": "string",
+              "registrar_url": "string",
+              "registrar_abuse_email": "string",
+              "registrar_abuse_form": "string",
+              "registrar_twitter": "string",
+              "owner_organization": "string",
+              "owner_country": "string",
+              "owner_state_province": "string",
+              "owner_email_hash": "string",
+              "owner_email_domain": "string",
+              "owner_free_email": "boolean",
+              "owner_private_person": "boolean",
+              "whois_data_hidden": "boolean",
+              "dnssec": "string",
+              "nameservers": [
+                {
+                  "name": "string",
+                  "ipv4": "string",
+                  "ipv6": "string"
+                }
+              ]
+            }
+          } 
+        }
       },
       {
         id: "apivoid-domain-age",
@@ -351,7 +750,21 @@ export const services = [
         description: "Check the registration age of a domain.",
         parameters: [],
         requestBody: { domain: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response",
+            body:{
+              "host": "string",
+              "debug_message": "string",
+              "domain_age_found": "boolean",
+              "domain_registered": "string",
+              "domain_creation_date": "date",
+              "domain_age_in_days": "integer",
+              "domain_age_in_months": "integer",
+              "domain_age_in_years": "integer"
+            }
+          } 
+        }
       },
       {
         id: "apivoid-email",
@@ -361,7 +774,60 @@ export const services = [
         description: "Assess email reputation via API Void.",
         parameters: [],
         requestBody: { email: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response",
+          body:{
+            "email": "string",
+            "role_address": "boolean",
+            "system_address": "boolean",
+            "noreply_address": "boolean",
+            "suspicious_username": "boolean",
+            "dirty_words_username": "boolean",
+            "suspicious_email": "boolean",
+            "email_length": "integer",
+            "username_length": "integer",
+            "domain_length": "integer",
+            "username_has_only_digits": "boolean",
+            "username_dots_count": "integer",
+            "username_underscores_count": "integer",
+            "username_hyphens_count": "integer",
+            "username_digits_count": "integer",
+            "username_letters_count": "integer",
+            "domain": "string",
+            "root_domain": "string",
+            "tld": "string",
+            "valid_tld": "boolean",
+            "public_domain": "boolean",
+            "disposable": "boolean",
+            "email_forwarder": "boolean",
+            "has_a_records": "boolean",
+            "has_mx_records": "boolean",
+            "has_txt_records": "boolean",
+            "has_spf_records": "boolean",
+            "dmarc_configured": "boolean",
+            "dmarc_enforced": "boolean",
+            "is_spoofable": "boolean",
+            "free_email": "boolean",
+            "russian_free_email": "boolean",
+            "china_free_email": "boolean",
+            "suspicious_domain": "boolean",
+            "dirty_words_domain": "boolean",
+            "domain_popular": "boolean",
+            "risky_tld": "boolean",
+            "police_domain": "boolean",
+            "government_domain": "boolean",
+            "educational_domain": "boolean",
+            "student_email": "boolean",
+            "should_block": "boolean",
+            "email_smtp_status": "string",
+            "email_typos_fixed": "boolean",
+            "email_verified": "boolean",
+            "email_is_catch_all": "boolean",
+            "email_domain_status": "string",
+            "email_is_personal": "boolean"
+          } 
+        } }
       }
     ]
   },
@@ -378,7 +844,37 @@ export const services = [
         description: "Detect browser bots and properties.",
         parameters: [],
         requestBody: { ip: "string", user_agent: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response", 
+            body: {    
+              "security-details": "object",
+              "exec-results": "[]",
+              "mime-type": "string",
+              "response-headers": "object",
+              "content-size": "integer",
+              "language-code": "string",
+              "load-time": "integer",
+              "server-ip": "string",
+              "title": "string",
+              "url": "string",
+              "content": "string",
+              "http-status-code": "integer",
+              "http-redirect-url": "string",
+              "is-error": "boolean",
+              "error-message": "string",
+              "is-secure": "boolean",
+              "elements": "[]",
+              "server-hostname": "string",
+              "url-valid": "boolean",
+              "url-components": "object",
+              "http-status-message": "string",
+              "is-http-ok": "boolean",
+              "is-timeout": "boolean",
+              "is-http-redirect": "boolean"
+            } 
+          } 
+        }
       },
       {
         id: "ip-probe",
@@ -388,7 +884,46 @@ export const services = [
         description: "Execute a detailed IP probe.",
         parameters: [],
         requestBody: { ip: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response",
+            body: {
+              "region-code": "string",
+              "country": "string",
+              "country-code": "string",
+              "provider-domain": "string",
+              "city": "string",
+              "vpn-domain": "string",
+              "is-vpn": "boolean",
+              "as-cidr": "string",
+              "valid": "boolean",
+              "provider-type": "string",
+              "hostname": "string",
+              "as-age": "string",
+              "continent-code": "string",
+              "is-bogon": "boolean",
+              "ip": "string",
+              "as-country-code": "string",
+              "provider-description": "string",
+              "as-country-code3": "string",
+              "is-v4-mapped": "boolean",
+              "is-isp": "boolean",
+              "provider-website": "string",
+              "as-description": "string",
+              "is-hosting": "boolean",
+              "as-domains": [
+                "string"
+              ],
+              "host-domain": "string",
+              "is-proxy": "boolean",
+              "currency-code": "string",
+              "region": "string",
+              "asn": "string",
+              "country-code3": "string",
+              "is-v6": "boolean"
+            }
+          } 
+        }
       },
       {
         id: "ip-blocklist",
@@ -398,7 +933,35 @@ export const services = [
         description: "Check if an IP is blocklisted.",
         parameters: [],
         requestBody: { ip: "string" },
-        responses: { 200: { description: "Successful response" } }
+        responses: { 
+          200: { 
+            description: "Successful response",
+            body: { 
+              "is-hijacked": "boolean",
+              "is-spider": "boolean",
+              "is-tor": "boolean",
+              "is-dshield": "boolean",
+              "is-vpn": "boolean",
+              "ip": "string",
+              "is-spyware": "boolean",
+              "is-spam-bot": "boolean",
+              "blocklists": [
+                "string"
+              ],
+              "last-seen": "integer",
+              "is-bot": "boolean",
+              "sensors": [
+                "string"
+              ],
+              "list-count": "integer",
+              "cidr": "string",
+              "is-listed": "boolean",
+              "is-proxy": "boolean",
+              "is-malware": "boolean",
+              "is-exploit-bot": "boolean"
+            } 
+          } 
+        }
       }
     ]
   },

@@ -20,8 +20,9 @@ const MethodBadge = ({ method }) => {
 export default function EndpointSection({ endpoint }) {
   return (
     <section id={endpoint.id} className="border-b border-gray-200 scroll-mt-0">
+      
+      {/*  */}
       <div className="flex flex-col lg:flex-row">
-        {/* Left Column - Details */}
         <div className="lg:w-1/2 p-8 lg:p-12 lg:border-r border-gray-200 bg-white">
           <div className="flex items-center space-x-3 mb-4">
             <h2 className="text-2xl font-semibold text-gray-900">{endpoint.title}</h2>

@@ -1,11 +1,11 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/layout/Sidebar';
 import EndpointSection from '../components/EndpointSection';
 import { services } from '../data/services';
 
 export default function Home() {
+
   const [activeId, setActiveId] = useState('');
 
   // Intersection observer to track which endpoint is currently active on screen
@@ -20,17 +20,24 @@ export default function Home() {
       },
       { rootMargin: '-20% 0px -80% 0px' }
     );
-
     const elements = document.querySelectorAll('section[id]');
-    elements.forEach((el) => observer.observe(el));
+    if(!elements.length) return;
 
-    return () => observer.disconnect();
+    elements.forEach((el) => observer.observe(el));
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
   }, []);
+
+  useEffect(() => {
+    })
 
   return (
     <div className="flex w-full min-h-screen bg-white">
       {/* Sidebar hidden on very small screens, visible on md+ */}
-      <div className="hidden md:block w-64 flex-shrink-0">
+      {/* <div className="hidden md:block w-64 flex-shrink-0"> */}
+      <div className="md:block w-64 flex-shrink-0">
         <Sidebar services={services} activeId={activeId} />
       </div>
 
@@ -48,7 +55,7 @@ export default function Home() {
               <div className="lg:w-1/2 p-8 lg:p-12 lg:border-r border-gray-200 bg-white">
                 <h1 className="text-4xl font-extrabold text-gray-900 mb-6">API Documentation</h1>
                 <p className="text-lg text-gray-700 mb-4">
-                  Welcome to our API reference. Here you'll find comprehensive guides and documentation to help you start working with our platform as quickly as possible.
+                  Welcome to our API reference. Here you&#39;ll find comprehensive guides and documentation to help you start working with our platform as quickly as possible.
                 </p>
                 <p className="text-gray-600 mb-8 mt-4 leading-relaxed">
                   The API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
