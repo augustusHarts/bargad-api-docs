@@ -19,7 +19,7 @@ const MethodBadge = ({ method }) => {
 
 export default function EndpointSection({ endpoint }) {
   return (
-    <section id={endpoint.id} className="border-b border-gray-200 scroll-mt-0">
+    <section id={endpoint.id} className="border-b border-gray-200 ">
       
       {/*  */}
       <div className="flex flex-col lg:flex-row">

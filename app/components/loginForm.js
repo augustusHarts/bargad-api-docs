@@ -4,13 +4,13 @@ import { motion } from "framer-motion";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
+import { useAuth } from "./AuthContext"; // Import the AuthContext hook
 
 export default function LoginForm() {
-  const router = useRouter(); 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const {setIsAuthenticated} = useAuth(); // Local state for demo purposes
 
   // This ensures the component only acts "Client-Side" for specific logic
   useEffect(() => {
@@ -18,7 +18,8 @@ export default function LoginForm() {
   }, []);
 
   function routeChange() {
-    router.push("/product");
+    setIsAuthenticated(true); // Set the flag to true on login  
+    router.push("/api-docs");
   }
 
   // To prevent the "Flash of Unstyled Content" or Hydration errors
@@ -54,9 +55,7 @@ export default function LoginForm() {
             </label>
             <input
               type="text"
-              value={username}
               placeholder="Enter your email"
-              onChange={(e) => setUsername(e.target.value)}
               suppressHydrationWarning={true} // <--- FIX 1: Prevents attribute mismatch errors
               className="w-full bg-black/50 border border-[#24aa4d]/40 rounded-full py-3 px-6 text-white placeholder:text-gray-700 outline-none focus:border-[#24aa4d] transition-all text-xs"
             />
@@ -70,9 +69,7 @@ export default function LoginForm() {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                value={password}
                 placeholder="Enter your password"
-                onChange={(e) => setPassword(e.target.value)}
                 suppressHydrationWarning={true} // <--- FIX 2: Prevents attribute mismatch errors
                 className="w-full bg-black/50 border border-[#24aa4d]/40 rounded-full py-3 px-6 text-white placeholder:text-gray-700 outline-none focus:border-[#24aa4d] transition-all text-xs"
               />
@@ -118,7 +115,7 @@ export default function LoginForm() {
             <p className="text-[9px] text-gray-600 font-medium">
               Please contact administrator, in case you are unable to login
             </p>
-            <a href="/registerd" className="border-t border-white/10 pt-4">
+            <a href="https://www.bargad.ai/ask-access" className="border-t border-white/10 pt-4">
               <p className="text-gray-200 text-[11px] font-black tracking-[0.2em] cursor-pointer hover:text-[#24aa4d] transition-colors">
                 SIGN IN TO DASHBOARD
               </p>
@@ -137,7 +134,8 @@ export default function LoginForm() {
 
 // Cleaned up Shield Component
 function ShieldSVG({ size }) {
-    const className = size === "large" ? "size-16" : "size-8";
+  const className = size === "large" ? "size-16" : "size-8";
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

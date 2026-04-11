@@ -1,6 +1,5 @@
 import React from 'react'
-// import RulesManagerLogin from '../rules/component/RulesManagerlogin'
-import LoginForm from './components/loginForm'
+import LoginForm from '../components/loginForm';
 
 export default function LoginPage() {
   return (
@@ -11,7 +10,6 @@ export default function LoginPage() {
       
       {/* Container with no extra padding to prevent shifting */}
       <div className="relative z-10 w-full flex items-center justify-center">
-        {/* <RulesManagerLogin /> */}
         <LoginForm />
       </div>
     </main>

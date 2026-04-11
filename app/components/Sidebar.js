@@ -29,8 +29,7 @@ export default function Sidebar({ services, activeId }) {
   return (
     <div className="w-72 h-full bg-[#f8fcf9] border-r border-[#e0f2e5] overflow-y-auto fixed left-0 top-0 pb-10 shadow-lg shadow-[#24aa4d]/5 custom-scrollbar">
       <div className="p-6 font-extrabold text-2xl text-[#000] border-b border-[#e0f2e5] sticky top-0 bg-[#f8fcf9] z-10 flex items-center gap-3">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#24aa4d] to-[#42ea5a] shadow-md flex items-center justify-center text-white font-black text-xl shadow-[#24aa4d]/30">B</div>
-        Bargad.ai
+        
       </div>
       <div className="p-5 border-b border-[#e0f2e5] sticky top-[84px] bg-[#f8fcf9] z-10">
         <div className="relative">
