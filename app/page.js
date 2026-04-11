@@ -48,7 +48,7 @@ export default function ApiDocsPage() {
               <div className="lg:w-1/2 p-8 lg:p-12 lg:border-r border-gray-200 bg-white">
                 <h1 className="text-4xl font-extrabold text-gray-900 mb-6">API Documentation</h1>
                 <p className="text-lg text-gray-700 mb-4">
-                  Welcome to our API reference. Here you'll find comprehensive guides and documentation to help you start working with our platform.
+                  Welcome to our API reference. Here you&apos;ll find comprehensive guides and documentation to help you start working with our platform.
                 </p>
                 <h3 className="text-xl font-semibold mb-4 text-gray-900">Base URL</h3>
                 <code className="bg-gray-100 px-3 py-2 rounded text-base font-mono block mb-8 text-gray-800">
