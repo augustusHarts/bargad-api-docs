@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "../styles/globals.css";
+import "../styles/globals.css"; // Check if this path is correct based on your root
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,10 +16,12 @@ export const metadata = {
   description: "API Documentation for Bargad API",
 };
 
-export default function ApiDocsLayout({ children }) {
+export default function RootLayout({ children }) {
   return (
-    <section className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      {children}
-    </section>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {children}
+      </body>
+    </html>
   );
 }
