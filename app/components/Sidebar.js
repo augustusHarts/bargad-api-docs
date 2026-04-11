@@ -4,15 +4,39 @@ import React, { useState, useRef, useEffect } from 'react';
 export default function Sidebar({ services, activeId }) {
   const [searchQuery, setSearchQuery] = useState('');
   const itemsRef = useRef({});
+  const [role, setRole] = useState("user"); // Default role
 
-  const filteredServices = services.map(service => {
-    const filteredEndpoints = service.endpoints.filter(ep =>
-      ep.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      ep.path.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      service.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    if (storedRole) {
+      setRole(storedRole);
+    }
+  }, []);
+
+  // const filteredServices = services.map(service => {
+  //   const filteredEndpoints = service.endpoints.filter(ep =>
+  //     ep.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     ep.path.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     service.name.toLowerCase().includes(searchQuery.toLowerCase())
+  //   );
+  //   return { ...service, endpoints: filteredEndpoints };
+  // }).filter(service => service.endpoints.length > 0);
+
+  const roleFilteredServices = services.map((service) => {
+    const filteredEndpoints = service.endpoints.filter((ep) => {
+      const isAccessible = ep.adminOnly ? role === "admin" : true;
+
+      const matchesSearch = 
+        ep.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        ep.path.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        service.name.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return isAccessible && matchesSearch;
+    });
+
+    if (filteredEndpoints.length === 0) return null;
     return { ...service, endpoints: filteredEndpoints };
-  }).filter(service => service.endpoints.length > 0);
+  }).filter(Boolean);
 
   // Scroll the active section in sidebar into view when activeId changes
   useEffect(() => {
@@ -25,6 +49,11 @@ export default function Sidebar({ services, activeId }) {
       });
     }
   }, [activeId]); 
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    setRole(storedRole || "user");
+  }, []);
 
   return (
     <div className="w-72 h-full bg-[#f8fcf9] border-r border-[#e0f2e5] overflow-y-auto fixed left-0 top-0 pb-10 shadow-lg shadow-[#24aa4d]/5 custom-scrollbar">
@@ -44,7 +73,7 @@ export default function Sidebar({ services, activeId }) {
         </div>
       </div>
       <nav className="p-6 mt-2">
-        {filteredServices.map((service) => (
+        {roleFilteredServices.map((service) => (
           <div key={service.id} className="mb-8 relative">
             <h2 className="text-[11px] font-black text-[#24aa4d] uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#42ea5a] shadow-[0_0_8px_0_#42ea5a]"></span>

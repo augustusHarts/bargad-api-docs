@@ -10,6 +10,7 @@ export default function ApiDocsPage() {
   const [activeId, setActiveId] = useState('');
   const router = useRouter();
   const {isAuthenticated} = useAuth(); // Access the authentication state
+  const [role, setRole] = useState("user");
 
   const handleLogout = () => {
     setIsAuthenticated(false); // Reset the RAM-based flag
@@ -19,8 +20,13 @@ export default function ApiDocsPage() {
   };
 
   useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    setRole(storedRole || "user");
+  }, []);
+
+  useEffect(() => {
     if(!isAuthenticated) {
-      router.replace("/login");
+      router.replace("/login"); 
     }
   },[isAuthenticated,router]);
 
@@ -82,13 +88,23 @@ export default function ApiDocsPage() {
             </div>
           </section>
 
-          {services.map((service) => (
-            <div key={service.id}>
-              {service.endpoints.map((endpoint) => (
-                <EndpointSection key={endpoint.id} endpoint={endpoint} />
-              ))}
-            </div>
-          ))}
+          {services.map((service) => {
+            const filteredEndpoints = service.endpoints.filter((endpoint) => {
+              if (endpoint.adminOnly && role !== "admin") return false;
+              return true;
+            });
+
+            // ❗ Optional: hide entire service if no endpoints left
+            if (filteredEndpoints.length === 0) return null;
+
+            return (
+              <div key={service.id}>
+                {filteredEndpoints.map((endpoint) => (
+                  <EndpointSection key={endpoint.id} endpoint={endpoint} />
+                ))}
+              </div>
+            );
+          })}
         </div>
       </main>
     </div>

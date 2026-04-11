@@ -11,6 +11,8 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [mounted, setMounted] = useState(false);
   const {setIsAuthenticated} = useAuth(); // Local state for demo purposes
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   // This ensures the component only acts "Client-Side" for specific logic
   useEffect(() => {
@@ -18,7 +20,16 @@ export default function LoginForm() {
   }, []);
 
   function routeChange() {
-    setIsAuthenticated(true); // Set the flag to true on login  
+    const adminUser = process.env.NEXT_PUBLIC_ADMIN_USER;
+    const adminPass = process.env.NEXT_PUBLIC_ADMIN_PASS;
+
+    if (username === adminUser && password === adminPass) {
+      localStorage.setItem("role", "admin");
+    } else {
+      localStorage.setItem("role", "user");
+    }
+
+    setIsAuthenticated(true);
     router.push("/api-docs");
   }
 
@@ -57,6 +68,7 @@ export default function LoginForm() {
               type="text"
               placeholder="Enter your email"
               suppressHydrationWarning={true} // <--- FIX 1: Prevents attribute mismatch errors
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full bg-black/50 border border-[#24aa4d]/40 rounded-full py-3 px-6 text-white placeholder:text-gray-700 outline-none focus:border-[#24aa4d] transition-all text-xs"
             />
           </div>
@@ -71,6 +83,7 @@ export default function LoginForm() {
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 suppressHydrationWarning={true} // <--- FIX 2: Prevents attribute mismatch errors
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-black/50 border border-[#24aa4d]/40 rounded-full py-3 px-6 text-white placeholder:text-gray-700 outline-none focus:border-[#24aa4d] transition-all text-xs"
               />
               <div

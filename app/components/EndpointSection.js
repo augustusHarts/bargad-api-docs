@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from "react";
 
 const MethodBadge = ({ method }) => {
   const colors = {
@@ -18,6 +19,17 @@ const MethodBadge = ({ method }) => {
 };
 
 export default function EndpointSection({ endpoint }) {
+  const [role, setRole] = useState("user");
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    setRole(storedRole || "user");
+  }, []);
+
+  if (endpoint.adminOnly && role !== "admin") {
+    return null;
+  }
+
   return (
     <section id={endpoint.id} className="border-b border-gray-200 ">
       
