@@ -9,17 +9,37 @@ import { useAuth } from "./AuthContext"; // Import the AuthContext hook
 export default function LoginForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
   const {setIsAuthenticated} = useAuth(); // Local state for demo purposes
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState({username: "", password: ""});
 
-  // This ensures the component only acts "Client-Side" for specific logic
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // // This ensures the component only acts "Client-Side" for specific logic
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
+
+  function validate() {
+    let valid = true;
+    let newErrors = { username: "", password: "" };
+
+    if (!username.trim()) {
+      newErrors.username = "Username is a required field";
+      valid = false;
+    }
+
+    if (!password.trim()) {
+      newErrors.password = "Password is a required field";
+      valid = false;
+    }
+
+    setError(newErrors);
+    return valid;
+  }
 
   function routeChange() {
+    if (!validate()) return;
     const adminUser = process.env.NEXT_PUBLIC_ADMIN_USER;
     const adminPass = process.env.NEXT_PUBLIC_ADMIN_PASS;
 
@@ -66,11 +86,21 @@ export default function LoginForm() {
             </label>
             <input
               type="text"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                if (error.username) setError({ ...error, username: "" });
+              }}
+              className={`w-full bg-black/50 border ${
+                error.username ? "border-red-500" : "border-[#24aa4d]/40"
+              } rounded-full py-3 px-6 text-white outline-none focus:border-[#24aa4d] transition-all text-xs`}
               placeholder="Enter your email"
-              suppressHydrationWarning={true} // <--- FIX 1: Prevents attribute mismatch errors
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-black/50 border border-[#24aa4d]/40 rounded-full py-3 px-6 text-white placeholder:text-gray-700 outline-none focus:border-[#24aa4d] transition-all text-xs"
             />
+            {error.username && (
+              <p className="text-red-500 text-[10px] ml-4 mt-1 font-semibold italic">
+                *{error.username}
+              </p>
+            )}
           </div>
 
           {/* Password Input */}
@@ -81,22 +111,23 @@ export default function LoginForm() {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (error.password) setError({ ...error, password: "" });
+                }}
+                className={`w-full bg-black/50 border ${
+                  error.password ? "border-red-500" : "border-[#24aa4d]/40"
+                } rounded-full py-3 px-6 text-white outline-none focus:border-[#24aa4d] transition-all text-xs`}
                 placeholder="Enter your password"
-                suppressHydrationWarning={true} // <--- FIX 2: Prevents attribute mismatch errors
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-black/50 border border-[#24aa4d]/40 rounded-full py-3 px-6 text-white placeholder:text-gray-700 outline-none focus:border-[#24aa4d] transition-all text-xs"
               />
-              <div
-                className="absolute right-6 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500 hover:text-white"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? (
-                  <EyeSlashIcon className="w-4 h-4" />
-                ) : (
-                  <EyeIcon className="w-4 h-4" />
-                )}
-              </div>
+              {/* ... Eye Icons ... */}
             </div>
+            {error.password && (
+              <p className="text-red-500 text-[10px] ml-4 mt-1 font-semibold italic">
+                *{error.password}
+              </p>
+            )}
           </div>
 
           {/* Checkbox & Forgot Password */}
@@ -130,7 +161,7 @@ export default function LoginForm() {
             </p>
             <a href="https://www.bargad.ai/ask-access" className="border-t border-white/10 pt-4">
               <p className="text-gray-200 text-[11px] font-black tracking-[0.2em] cursor-pointer hover:text-[#24aa4d] transition-colors">
-                REQUEST ACCESS
+                  REQUEST ACCESS
               </p>
             </a>
           </div>
