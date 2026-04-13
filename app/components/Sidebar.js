@@ -72,9 +72,9 @@ export default function Sidebar({ services, activeId }) {
           />
         </div>
       </div>
-      <nav className="p-6 mt-2">
+      <nav className="pt-8 px-6">
         {roleFilteredServices.map((service) => (
-          <div key={service.id} className="mb-8 relative">
+          <div key={service.id} className="mb-8 relative mt-4">
             <h2 className="text-[11px] font-black text-[#24aa4d] uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#42ea5a] shadow-[0_0_8px_0_#42ea5a]"></span>
               {service.name}
