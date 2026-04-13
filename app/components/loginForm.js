@@ -130,7 +130,7 @@ export default function LoginForm() {
             </p>
             <a href="https://www.bargad.ai/ask-access" className="border-t border-white/10 pt-4">
               <p className="text-gray-200 text-[11px] font-black tracking-[0.2em] cursor-pointer hover:text-[#24aa4d] transition-colors">
-                SIGN IN TO DASHBOARD
+                REQUEST ACCESS
               </p>
             </a>
           </div>
