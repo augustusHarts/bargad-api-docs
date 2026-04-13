@@ -15,20 +15,24 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState({username: "", password: ""});
 
-  // // This ensures the component only acts "Client-Side" for specific logic
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
-
   function validate() {
+    // Basic validation: Check if fields are not empty and if email format is correct
     let valid = true;
     let newErrors = { username: "", password: "" };
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Check if username is empty or not in email format
     if (!username.trim()) {
       newErrors.username = "Username is a required field";
       valid = false;
+    } else if (!emailRegex.test(username)) {
+      // New check for invalid format
+      newErrors.username = "Please enter a valid email address";
+      valid = false;
     }
 
+    // Check if password is empty
     if (!password.trim()) {
       newErrors.password = "Password is a required field";
       valid = false;
